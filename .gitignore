@@ -1,2 +1,9 @@
-*.class
-*.log
+/bin/
+/.settings/
+/project/
+/target/
+/.cache-main
+/.cache-tests
+/.classpath
+/.project
+/~$$UMLDiagram.~vsdx
