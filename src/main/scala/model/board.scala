@@ -111,16 +111,8 @@ class Board {
         bHome(i) = Option(Piece("Bk", Square(i,7)))
       }
     }
-    // Not currently needed because pieces add themselves to board
-    /*for (j <- 0 until 8) {
-      board(j) = {
-        if (j == 0) bHome
-        else if (j == 1) bPawn
-        else if (j == 6) wPawn
-        else if (j == 7) wHome
-        else Array.fill(8)(None)
-      }
-    }*/
+    //println(this.show)
+    
   }
   
   /* Displays the current state of the board via text output
@@ -156,9 +148,9 @@ class Board {
   /* Find a specific piece and return its location, if still in play
    * 
    */
-  def findPiece(piece: Piece): Option[(Int,Int)] = {
+  def findPiece(pName: String): Option[Piece] = {
     for ((r,y) <- grid.zipWithIndex; (p,x) <- r.zipWithIndex) {
-      if (p == piece) return Option(x,y)
+      if (p != None && p.get.name == pName) return p
     }
     None
   }

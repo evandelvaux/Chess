@@ -33,7 +33,21 @@ class Board_Test extends FunSpec with Matchers {
         "Wr Wn Wb Wq Wk Wb Wn Wr"
       }
       
+      val expected2 = {
+        "Br Bn Bb Bq Bk Bb Bn Br\n"+
+        "Bp Bp Bp Bp Bp Bp Bp Bp\n"+
+        "-- -- -- -- -- -- -- --\n"+
+        "-- -- -- -- Bq -- -- --\n"+
+        "-- -- -- -- -- -- -- --\n"+
+        "Wp -- -- -- -- -- -- --\n"+
+        "Wp Wp Wp Wp Wp Wp Wp Wp\n"+
+        "Wr Wn Wb Wq Wk Wb Wn Wr"
+      }
+      
       Model.board.addPiece(Piece("Bq", Square(4,4)))
+      Model.board.addPiece(Piece("Wp", Square(0,2)))
+      Model.board.show should equal(expected2)
+      
       Model.board.reset
       Model.board.show should equal(expected)
     }

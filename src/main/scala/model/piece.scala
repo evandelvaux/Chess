@@ -5,6 +5,7 @@ case class Piece(var name: String, var loc: Square) {
   val side: Char = name(0)
   var pType: Char = name(1)
   var logic: Logic = Empty // Initialized empty, determined later
+  var hasMoved = false
   
   if (side == 'W') {
     Model.white.pieces +:= this
@@ -44,11 +45,41 @@ case class Piece(var name: String, var loc: Square) {
     this.name = this.side.toString + newType.toString
   }
   
+  /* Returns any special moves available only to a particular piece in a particular situation
+   * 
+   */
+  def getSpecialMoves: List[Move] = {
+    var moves = List.empty[Move]
+    
+    //Pawns moving 2 on 1st move
+    if (this.name == "Wp" && !this.hasMoved) moves +:= Move(0,2,-1)
+    else if (this.name == "Bp" && !this.hasMoved) moves +:= Move(0,-2,-1)
+    
+    //Castling
+    //Note: need to add tests for king being at risk; also don't forget to move the rook as well!
+    else if (this.pType == 'k' && !this.hasMoved) {
+      val lRook = Model.board.getPieceAt((this.loc + (-4,0)).toString)
+      if (lRook != None && lRook.get.pType == 'r' && !lRook.get.hasMoved) {
+        // Check for empty spaces between
+        if (Model.board.getPieceAt((this.loc + (-3,0)).toString) == None && Model.board.getPieceAt((this.loc + (-2,0)).toString) == None &&
+            Model.board.getPieceAt((this.loc + (-1,0)).toString) == None)
+          moves +:= Move(-2,0)
+      }
+      val rRook = Model.board.getPieceAt((this.loc + (3,0)).toString)
+      if (rRook != None && rRook.get.pType == 'r' && !rRook.get.hasMoved) {
+        // Check for empty spaces between
+        if (Model.board.getPieceAt((this.loc + (1,0)).toString) == None && Model.board.getPieceAt((this.loc + (2,0)).toString) == None)
+          moves +:= Move(2,0)
+      }
+    }
+    moves
+  }
+  
   /* Uses the piece logic to determine possible moves, then filters legal ones
    * 
    */
   def legalMoves: List[Square] = { // Returns the squares it can go to
-    val possible: List[Move] = this.logic.getMoves
+    val possible: List[Move] = this.logic.getMoves ++ this.getSpecialMoves
     //println("Possible: " + possible)
     var legal = List.empty[Square]
     for (move <- possible) {
