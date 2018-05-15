@@ -6,7 +6,7 @@ import org.scalactic.source.Position.apply
 
 class Piece_Test extends FunSpec with Matchers {
   Model.board.reset
-  describe("Piece") {
+  describe("Pieces") {
     describe("Pawn") {
       val d2 = Model.board.getPieceAt("d2").get
       it("moves forward into empty") {
@@ -119,6 +119,24 @@ class Piece_Test extends FunSpec with Matchers {
         Model.board.getPieceAt("h1").get.hasMoved = true
         e1.canMoveTo(Square(2,0)) should equal(true)
         e1.canMoveTo(Square(6,0)) should equal(false)
+      }
+    }
+    describe("General piece behavior") {
+      it("moving executes properly") {
+        Model.board.reset
+        val k = Model.board.getPieceAt("g1").get
+        k.canMoveTo(Square(5,2)) should equal(true)
+        k.move(Square(5,2))
+        Model.board.getPieceAt("g1") should equal(None)
+        Model.board.getPieceAt("f3").get should equal(k)
+      }
+      it("attacking executes properly") {
+        val k = Model.board.getPieceAt("f3").get
+        Model.board.addPiece(Piece("Bn", Square(4,4)))
+        k.canMoveTo(Square(4,4)) should equal(true)
+        k.move(Square(4,4))
+        Model.board.getPieceAt("f3") should equal(None)
+        Model.board.getPieceAt("e5").get should equal(k)
       }
     }
     

@@ -105,4 +105,23 @@ case class Piece(var name: String, var loc: Square) {
     }
     false
   }
+  
+  /* Removes piece from the current square and moves to the new one
+   * 
+   */
+  def move(to: Square): Unit = {
+    // Remove from current square
+    Model.board.removePiece(this)
+    
+    // Check if there is currently a piece at the destination, if so, remove it
+    val at = Model.board.getPieceAt(to.toString)
+    if (at != None) {
+      Model.board.removePiece(at.get)
+      at.get.loc = Square(-1,-1)
+    }
+    
+    // Move to new square
+    this.loc = to
+    Model.board.addPiece(this)
+  }
 }
