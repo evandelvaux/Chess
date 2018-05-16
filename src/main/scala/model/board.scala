@@ -5,6 +5,16 @@ class Board {
   
   /*------------------ Methods ------------------*/
   
+  /* Converts a square name to a Square
+   * 
+   */
+  def nameToSquare(name: String): Square = {
+    // Note: assuming that only valid data is passed in
+    val col = name(0) - 'a'
+    val row = name(1) - '1'
+    Square(col,row)
+  }
+  
   /* Add a piece to the board
    * 
    */
@@ -115,32 +125,37 @@ class Board {
     
   }
   
-  /* Displays the current state of the board via text output
+  /* Returns the current state of the board via text output
    * 
    */
   def show: String = {
-  /*"Br Bn Bb Bq Bk Bb Bn Br\n"+
-    "Bp Bp Bp Bp Bp Bp Bp Bp\n"+
-    "-- -- -- -- -- -- -- --\n"+
-    "-- -- -- -- -- -- -- --\n"+
-    "-- -- -- -- -- -- -- --\n"+
-    "-- -- -- -- -- -- -- --\n"+
-    "Wp Wp Wp Wp Wp Wp Wp Wp\n"+
-    "Wr Wn Wb Wq Wk Wb Wn Wr\n"*/
+  /*"   #######################\n"+
+    "8 #Br Bn Bb Bq Bk Bb Bn Br#\n"+
+    "7 #Bp Bp Bp Bp Bp Bp Bp Bp#\n"+
+    "6 #-- -- -- -- -- -- -- --#\n"+
+    "5 #-- -- -- -- -- -- -- --#\n"+
+    "4 #-- -- -- -- -- -- -- --#\n"+
+    "3 #-- -- -- -- -- -- -- --#\n"+
+    "2 #Wp Wp Wp Wp Wp Wp Wp Wp#\n"+
+    "1 #Wr Wn Wb Wq Wk Wb Wn Wr#\n"+
+    "   #######################\n"+
+    "   a  b  c  d  e  f  g  h"*/
     
-    var output = ""
+    var output = "   #######################\n"
     for ((r,y) <- grid.zipWithIndex.reverse) {
-      if (output != "") output += "\n"
-      var row = ""
+      var row = (y+1).toString + " #"
       for ((c,x) <- r.zipWithIndex) {
-        if (row != "") row += " "
+        if (x != 0) row += " "
         row += {
           if (c == None) "--"
           else c.get.name
         }
       }
       output += row
+      output += "#\n"
     } // end for
+    
+    output += "   #######################\n" + "   a  b  c  d  e  f  g  h"
     
     output
   } // End show

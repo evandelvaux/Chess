@@ -11,30 +11,50 @@ import java.awt.Font
 import java.awt.Dimension
 import javax.swing.border._
 import scala.swing.Orientation
+import scala.io.StdIn
 
 /** A view in a MVC design.
   *@constructor Create a new view
   */
-class View {
-    /** The views controller in the MVC model
-  *  
-  */
-  var controller: Option[Controller] = None
-  /** The views model in the MVC model
-  *  
-  */
-  //var model: Option[Model] = None
+object View {
   
+  var interface: Option[Interface] = None
+
   //******* init ******* 
 
-  /** A model in a MVC designs
-  *  
-  *@param ctr The view's controller
-  *@param mod The view's model
-  */ 
-  def init(ctr: Controller) {//, mod: Model) {
-    controller = Some(ctr)
-    //model = Some(mod)
+  /** Initiate the view
+   *  
+   */
+  def init(vType: Char) = {//, mod: Model) {
+    if (vType == 't') this.interface = Option(new TextBased)
+    this.interface.get.show
+    //else Option(new GUI)
   }
+  
+  /** Refresh the interface for the player
+   *  
+   */
+  def refresh = {
+    this.interface.get.show
+  }
+  
+  /** Notifies the player that an error has occurred
+   *  
+   */
+  def error(message: String) = {
+    println("##Error: " + message)
+  }
+  
+  /** Use the interface to get player input, then make the appropriate move
+   *  
+   */
+  def getDecision(whose: Char): (Piece,Square) = {
+    val piece: Piece = interface.get.selectPiece(whose).get
+    val dest: Square = interface.get.selectDest(piece).get
+    (piece,dest)
+  }
+  
+  
+  //def showGUI
   
 }

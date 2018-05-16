@@ -8,4 +8,6 @@ object Model {
   val black = new Player('B')
   
   val board = new Board
+  
+  var turn = 'W'
 }

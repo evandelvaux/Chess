@@ -11,6 +11,35 @@ import scala.swing._
   * @param model the controller's model component of the MVC design
   */
 
-class Controller(view: View) { //, model: Model) {
+object Controller { //, model: Model) {
+  
+  /*------------------------ Methods -----------------------------*/
+  
+  
+  /* Switches whose turn it is
+   * 
+   */
+  def altTurn: Unit = {
+    Model.turn = if (Model.turn == 'W') 'B' else 'W'
+  }
+  
+  /* Complete's one player's turn
+   * 
+   */
+  def doTurn: Unit = {
+    val (piece, dest) = View.getDecision(Model.turn)
+    piece.move(dest)
+    this.altTurn
+    View.refresh
+  }
+  
+  /* Plays until a game is complete
+   * 
+   */
+  def doGame: Unit = {
+    while (true) {
+      this.doTurn
+    }
+  }
   
 }

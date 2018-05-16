@@ -8,14 +8,17 @@ class Board_Test extends FunSpec with Matchers {
   describe("Board") {
     it("sets correctly"){
       val expected = {
-        "Br Bn Bb Bq Bk Bb Bn Br\n"+
-        "Bp Bp Bp Bp Bp Bp Bp Bp\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "Wp Wp Wp Wp Wp Wp Wp Wp\n"+
-        "Wr Wn Wb Wq Wk Wb Wn Wr"
+        "   #######################\n"+
+        "8 #Br Bn Bb Bq Bk Bb Bn Br#\n"+
+        "7 #Bp Bp Bp Bp Bp Bp Bp Bp#\n"+
+        "6 #-- -- -- -- -- -- -- --#\n"+
+        "5 #-- -- -- -- -- -- -- --#\n"+
+        "4 #-- -- -- -- -- -- -- --#\n"+
+        "3 #-- -- -- -- -- -- -- --#\n"+
+        "2 #Wp Wp Wp Wp Wp Wp Wp Wp#\n"+
+        "1 #Wr Wn Wb Wq Wk Wb Wn Wr#\n"+
+        "   #######################\n"+
+        "   a  b  c  d  e  f  g  h"
       }
       
       Model.board.reset
@@ -23,25 +26,31 @@ class Board_Test extends FunSpec with Matchers {
     }
     it("resets correctly") {
       val expected = {
-        "Br Bn Bb Bq Bk Bb Bn Br\n"+
-        "Bp Bp Bp Bp Bp Bp Bp Bp\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "Wp Wp Wp Wp Wp Wp Wp Wp\n"+
-        "Wr Wn Wb Wq Wk Wb Wn Wr"
+        "   #######################\n"+
+        "8 #Br Bn Bb Bq Bk Bb Bn Br#\n"+
+        "7 #Bp Bp Bp Bp Bp Bp Bp Bp#\n"+
+        "6 #-- -- -- -- -- -- -- --#\n"+
+        "5 #-- -- -- -- -- -- -- --#\n"+
+        "4 #-- -- -- -- -- -- -- --#\n"+
+        "3 #-- -- -- -- -- -- -- --#\n"+
+        "2 #Wp Wp Wp Wp Wp Wp Wp Wp#\n"+
+        "1 #Wr Wn Wb Wq Wk Wb Wn Wr#\n"+
+        "   #######################\n"+
+        "   a  b  c  d  e  f  g  h"
       }
       
       val expected2 = {
-        "Br Bn Bb Bq Bk Bb Bn Br\n"+
-        "Bp Bp Bp Bp Bp Bp Bp Bp\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "-- -- -- -- Bq -- -- --\n"+
-        "-- -- -- -- -- -- -- --\n"+
-        "Wp -- -- -- -- -- -- --\n"+
-        "Wp Wp Wp Wp Wp Wp Wp Wp\n"+
-        "Wr Wn Wb Wq Wk Wb Wn Wr"
+        "   #######################\n"+
+        "8 #Br Bn Bb Bq Bk Bb Bn Br#\n"+
+        "7 #Bp Bp Bp Bp Bp Bp Bp Bp#\n"+
+        "6 #-- -- -- -- -- -- -- --#\n"+
+        "5 #-- -- -- -- Bq -- -- --#\n"+
+        "4 #-- -- -- -- -- -- -- --#\n"+
+        "3 #Wp -- -- -- -- -- -- --#\n"+
+        "2 #Wp Wp Wp Wp Wp Wp Wp Wp#\n"+
+        "1 #Wr Wn Wb Wq Wk Wb Wn Wr#\n"+
+        "   #######################\n"+
+        "   a  b  c  d  e  f  g  h"
       }
       
       Model.board.addPiece(Piece("Bq", Square(4,4)))

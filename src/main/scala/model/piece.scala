@@ -110,6 +110,8 @@ case class Piece(var name: String, var loc: Square) {
    * 
    */
   def move(to: Square): Unit = {
+    this.hasMoved = true
+    
     // Remove from current square
     Model.board.removePiece(this)
     

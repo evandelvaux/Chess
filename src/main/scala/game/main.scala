@@ -14,11 +14,13 @@ object Main {
   */
 
   def main(args: Array[String]): Unit = {
-    val view  = new View
-    val controller = new Controller(view) //, Model)
-
-    view.init(controller)
-    //view.showWindow
+    
+    // Change the type of view used (t: text; g: GUI)
+    val vType = 't'
+    
+    Model.board.reset
+    View.init(vType)
+    Controller.doGame
   }
 
 }
